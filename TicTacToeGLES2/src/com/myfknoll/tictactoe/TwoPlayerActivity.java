@@ -6,6 +6,13 @@ import org.andengine.input.touch.TouchEvent;
 
 import android.util.Log;
 
+/**
+ * TicTacToe Applikation
+ *
+ * @author Florian Knoll -  myfknoll(at)gmail.com
+ *
+ * @version 1.0.0
+ */
 public class TwoPlayerActivity extends OnePlayerActivity{
     // ===========================================================
     // Constants

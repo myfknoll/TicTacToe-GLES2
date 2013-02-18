@@ -22,6 +22,11 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.ui.activity.LayoutGameActivity;
 import org.andengine.util.debug.Debug;
 
+/**
+ *
+ * @author myfknoll (at) gmail.com
+ *
+ */
 public class OnePlayerActivity extends LayoutGameActivity implements IOnSceneTouchListener {
     // ===========================================================
     // Constants

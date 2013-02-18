@@ -7,12 +7,9 @@ import android.util.Log;
 /**
  * TicTacToe Applikation
  *
- * @author Florian Knoll
+ * @author Florian Knoll -  myfknoll(at)gmail.com
  *
  * @version 1.0.0
- */
-
-/**
  */
 public class TicTacToeApplication extends Application {
     private static String LOG_TAG = "TicTacToeApplication";
@@ -26,5 +23,4 @@ public class TicTacToeApplication extends Application {
 
         super.onCreate();
     }
-
 }

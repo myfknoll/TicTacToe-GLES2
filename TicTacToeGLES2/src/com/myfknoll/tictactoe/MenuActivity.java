@@ -38,11 +38,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 /**
- * (c) 2010 Nicolas Gramlich
- * (c) 2011 Zynga
  *
- * @author Nicolas Gramlich
- * @since 18:47:08 - 19.03.2010
+ * @author myfknoll (at) gmail.com
+ *
  */
 public class MenuActivity extends LayoutGameActivity implements IAccelerationListener,IOnMenuItemClickListener {
 	// ===========================================================
@@ -139,11 +137,12 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
         pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onCreateScene(final OnCreateSceneCallback pOnCreateSceneCallback)
 			throws Exception {
-		// TODO Auto-generated method stub
-
 
 		this.mEngine.registerUpdateHandler(new FPSLogger());
 
@@ -205,8 +204,11 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
         this.mScene.setOnMenuItemClickListener(this);
 
         pOnCreateSceneCallback.onCreateSceneFinished(mScene);
-	}
+    }
 
+	 /**
+     * {@inheritDoc}
+     */
     @Override
     public void onResumeGame() {
         super.onResumeGame();
@@ -214,6 +216,9 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
         enableAccelerationSensor(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPauseGame() {
         super.onPauseGame();
@@ -221,16 +226,25 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
         disableAccelerationSensor();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected int getLayoutID() {
         return R.layout.menu;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected int getRenderSurfaceViewID() {
         return R.id.menu_rendersurfaceview;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onMenuItemClicked(final MenuScene pMenuScene, final IMenuItem pMenuItem,
             final float pMenuItemLocalX, final float pMenuItemLocalY) {
