@@ -55,7 +55,6 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
     protected static final int MENU_MORE = 2;
     protected static final int MENU_QUIT = 3;
 
-
 	private static final FixtureDef FIXTURE_DEF = PhysicsFactory.createFixtureDef(1, 0.5f, 0.5f);
 
 	// ===========================================================
@@ -74,15 +73,12 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
     protected ITextureRegion mMenuMoreTextureRegion;
     protected ITextureRegion mMenuQuitTextureRegion;
 
-
     protected Camera mCamera;
-
 
 	private MenuScene mScene;
 
 	private PhysicsWorld mPhysicsWorld;
 	private int mFaceCount = 0;
-
 
 	// ===========================================================
 	// Constructors
@@ -96,7 +92,9 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		 this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
@@ -108,15 +106,14 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
 	}
 
 
-	@Override
-	public void onCreateResources(
-			final OnCreateResourcesCallback pOnCreateResourcesCallback)
-			throws Exception {
-		// TODO Auto-generated method stub
-
+	/**
+	 * {@inheritDoc}
+	 */
+    @Override
+    public void onCreateResources(final OnCreateResourcesCallback pOnCreateResourcesCallback)
+            throws Exception {
 
 		/* Textures. */
-
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		mCircleTexture =new BitmapTextureAtlas(getTextureManager(),128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mCrossTexture =new BitmapTextureAtlas(getTextureManager(),128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -181,7 +178,6 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
 		addBrick(0,CAMERA_HEIGHT-mCircleTexture.getHeight());
 		addBrick(CAMERA_WIDTH/2-mCircleTexture.getWidth()/2,CAMERA_HEIGHT-mCircleTexture.getHeight());
 		addBrick(CAMERA_WIDTH-mCircleTexture.getWidth(),CAMERA_HEIGHT-mCircleTexture.getHeight());
-
 
 		//Create the Menu
         SpriteMenuItem onePlayerMenuItem = new SpriteMenuItem(MENU_1PLAYER, this.mMenu1PTextureRegion,getVertexBufferObjectManager());
@@ -253,7 +249,6 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
 
             Intent intent = new Intent(this, OnePlayerActivity.class);
             startActivity(intent);
-
             return true;
         case MENU_2PLAYER:
 
@@ -300,6 +295,9 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
         this.mPhysicsWorld.registerPhysicsConnector(new PhysicsConnector(brick, body, true, true));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPopulateScene(final Scene pScene, final OnPopulateSceneCallback pOnPopulateSceneCallback)
             throws Exception {
@@ -308,6 +306,9 @@ public class MenuActivity extends LayoutGameActivity implements IAccelerationLis
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAccelerationAccuracyChanged(final AccelerationData pAccelerationData) {
 

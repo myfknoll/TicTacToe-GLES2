@@ -66,7 +66,6 @@ public class OnePlayerActivity extends LayoutGameActivity implements IOnSceneTou
     protected ITextureRegion mCrossTextureRegion;
     protected ITextureRegion mCircleTextureRegion;
 
-
     /**
      * White's current position. The computer is white.
      */
@@ -81,7 +80,6 @@ public class OnePlayerActivity extends LayoutGameActivity implements IOnSceneTou
      * Who goes first in the next game?
      */
     boolean first = true;
-
 
     /**
      * The winning positions.
@@ -103,49 +101,47 @@ public class OnePlayerActivity extends LayoutGameActivity implements IOnSceneTou
 
     @Override
     protected int getLayoutID() {
-            return R.layout.game;
+        return R.layout.game;
     }
 
     @Override
     protected int getRenderSurfaceViewID() {
-            return R.id.onePlayer_rendersurfaceview;
+        return R.id.onePlayer_rendersurfaceview;
     }
 
-	@Override
-	public EngineOptions onCreateEngineOptions() {
-		 this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+    @Override
+    public EngineOptions onCreateEngineOptions() {
+        this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 
-         EngineOptions options = new EngineOptions(true, ScreenOrientation.PORTRAIT_SENSOR, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera);
-         options.getAudioOptions().setNeedsSound(true);
-         return options;
-	}
-
+        EngineOptions options =
+                new EngineOptions(true, ScreenOrientation.PORTRAIT_SENSOR, new RatioResolutionPolicy(
+                        CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera);
+        options.getAudioOptions().setNeedsSound(true);
+        return options;
+    }
 
     @Override
-    public void onCreateResources(
-    		final OnCreateResourcesCallback pOnCreateResourcesCallback)
-    		throws Exception {
+    public void onCreateResources(final OnCreateResourcesCallback pOnCreateResourcesCallback)
+            throws Exception {
 
+        this.mCircleTextureAtlas = new BitmapTextureAtlas(getTextureManager(),128,128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        this.mCrossTextureAtlas = new BitmapTextureAtlas(getTextureManager(),128,128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        this.mCircleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mCircleTextureAtlas, this, "circle.png", 0, 0);
+        this.mCrossTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mCrossTextureAtlas, this, "cross.png", 0, 0);
 
-    	   this.mCircleTextureAtlas = new BitmapTextureAtlas(getTextureManager(),128,128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-    	   this.mCrossTextureAtlas = new BitmapTextureAtlas(getTextureManager(),128,128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-           BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-           this.mCircleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mCircleTextureAtlas, this, "circle.png", 0, 0);
-           this.mCrossTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mCrossTextureAtlas, this, "cross.png", 0, 0);
-
-           this.mEngine.getTextureManager().loadTexture(mCircleTextureAtlas);
-           this.mEngine.getTextureManager().loadTexture(mCrossTextureAtlas);
+        this.mEngine.getTextureManager().loadTexture(mCircleTextureAtlas);
+        this.mEngine.getTextureManager().loadTexture(mCrossTextureAtlas);
 
         SoundFactory.setAssetBasePath("mfx/");
         try {
-                this.mBeepSound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "beep.ogg");
-                this.mDingSound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "ding.ogg");
-                this.mYahoo1Sound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "yahoo1.ogg");
-                this.mYahoo2Sound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "yahoo2.ogg");
-                this.mReturnSound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "return.ogg");
-
+            this.mBeepSound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "beep.ogg");
+            this.mDingSound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "ding.ogg");
+            this.mYahoo1Sound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "yahoo1.ogg");
+            this.mYahoo2Sound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "yahoo2.ogg");
+            this.mReturnSound = SoundFactory.createSoundFromAsset(this.mEngine.getSoundManager(), this, "return.ogg");
         } catch (final IOException e) {
-                Debug.e(e);
+            Debug.e(e);
         }
 
         pOnCreateResourcesCallback.onCreateResourcesFinished();
@@ -181,41 +177,38 @@ public class OnePlayerActivity extends LayoutGameActivity implements IOnSceneTou
      	Line line3 = new Line(0, yoff,CAMERA_WIDTH, yoff,lineWidth,getVertexBufferObjectManager());
      	Line line4 = new Line(0, 2*yoff, CAMERA_WIDTH, 2*yoff,lineWidth,getVertexBufferObjectManager());
 
+        line1.setColor(1, 1, 1);
+        line2.setColor(1, 1, 1);
+        line3.setColor(1, 1, 1);
+        line4.setColor(1, 1, 1);
 
-     	line1.setColor(1,1,1);
-     	line2.setColor(1,1,1);
-     	line3.setColor(1,1,1);
-     	line4.setColor(1,1,1);
-
-         mScene.attachChild(line1);
-         mScene.attachChild(line2);
-         mScene.attachChild(line3);
-         mScene.attachChild(line4);
+        mScene.attachChild(line1);
+        mScene.attachChild(line2);
+        mScene.attachChild(line3);
+        mScene.attachChild(line4);
     }
 
+    @Override
+    public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
 
-	@Override
-	public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent) {
+        if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
 
-		if(pSceneTouchEvent.getAction()==TouchEvent.ACTION_DOWN){
+            int x = (int) pSceneTouchEvent.getX();
+            int y = (int) pSceneTouchEvent.getY();
 
-		int x = (int) pSceneTouchEvent.getX();
-		int y = (int) pSceneTouchEvent.getY();
+            switch (status()) {
+            case WIN:
+            case LOSE:
+            case STALEMATE:
 
-		switch (status()) {
-		  case WIN:
-		  case LOSE:
-		  case STALEMATE:
+                OnePlayerActivity.this.mReturnSound.play();
 
-			  OnePlayerActivity.this.mReturnSound.play();
-
-			  runOnUpdateThread(new Runnable() {
-					@Override
-					public void run() {
-						/* Now it is save to remove the entity! */
-						  mScene.detachChildren();
-						  LoadNewGame();
-
+                runOnUpdateThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /* Now it is save to remove the entity! */
+                        mScene.detachChildren();
+                        LoadNewGame();
 
 						    white = black = 0;
 						    if (first) {
@@ -231,21 +224,20 @@ public class OnePlayerActivity extends LayoutGameActivity implements IOnSceneTou
 						    first = !first;
 
 					}
-				});
+                });
 
-			return true;
-		}
-		// Figure out the row/column
-		int c = (x * 3) / CAMERA_WIDTH;
-		int r = (y * 3) / CAMERA_HEIGHT;
-		if (yourMove(c + r * 3)) {
+                return true;
+            }
+            // Figure out the row/column
+            int c = (x * 3) / CAMERA_WIDTH;
+            int r = (y * 3) / CAMERA_HEIGHT;
+            if (yourMove(c + r * 3)) {
 
 			Sprite cross = new Sprite(
 					c*(CAMERA_WIDTH/3)+(CAMERA_WIDTH/3-mCrossTextureRegion.getWidth())/2,
 					r*(CAMERA_HEIGHT/3)+(CAMERA_HEIGHT/3-mCrossTextureRegion.getHeight())/2,
 					mCrossTextureRegion,getVertexBufferObjectManager());
 			mScene.attachChild(cross);
-
 
                 switch (status()) {
                 case WIN:
