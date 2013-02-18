@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:orientation="vertical"
+       android:gravity="center">
+    
+ 
+ 
+        <org.andengine.opengl.view.RenderSurfaceView
+               android:id="@+id/menu_rendersurfaceview"
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
+               android:gravity="center"
+         />
+         
+            
+      <LinearLayout 
+	        android:id="@+id/Menu_Ad"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        >
+			
+			<com.adwhirl.AdWhirlLayout
+	        android:id="@+id/adwhirl_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="52dip"/>
+							   
+		</LinearLayout>
+		       
+ 
+</LinearLayout>
